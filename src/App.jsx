@@ -1,122 +1,78 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import Header from './components/Header';
+import GameStats from './components/GameStats';
+import FormTambahGame from './components/FormTambahGame';
+import GameList from './components/GameList';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [games, setGames] = useState([
+    { 
+      id: 1, 
+      title: 'Life is Strange', 
+      genre: 'Graphic Adventure', 
+      image: '/images/life is strange.png' 
+    },
+    { 
+      id: 2, 
+      title: 'Until Then', 
+      genre: 'Adventure', 
+      image: '/images/until then.png' 
+    },
+    { 
+      id: 3, 
+      title: 'What Remains of Edith Finch', 
+      genre: 'Interactive Story', 
+      image: '/images/what remains of edith finch.png' 
+    },
+    { 
+      id: 4, 
+      title: 'A Space for the Unbound', 
+      genre: 'Slice of Life / Adventure', 
+      image: '/images/a space for the unbound.png' 
+    },
+    { 
+      id: 5, 
+      title: 'Clair Obscur: Expedition 33', 
+      genre: 'RPG', 
+      image: '/images/Clair Obscur 33.png' 
+    },
+    { 
+      id: 6, 
+      title: 'Death Stranding 2: On The Beach', 
+      genre: 'Action / Adventure', 
+      image: '/images/Death Stranding 2.jpg' 
+    },
+    { 
+      id: 7, 
+      title: 'Ghost of Yōtei', 
+      genre: 'Action / Adventure', 
+      image: '/images/Ghost of Yotei.webp' 
+    },
+    { 
+      id: 8, 
+      title: 'Hades II', 
+      genre: 'Roguelike', 
+      image: '/images/hades 2.webp' 
+    }
+  ]);
+
+  const handleAddGame = (newGame) => {
+    const gameToInsert = {
+      id: Date.now(),
+      title: newGame.title,
+      genre: newGame.genre
+    };
+    setGames([...games, gameToInsert]);
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+    <div className="app-container">
+      <Header />
+      <GameStats count={games.length} />
+      <FormTambahGame onAddGame={handleAddGame} />
+      <GameList games={games} />
+    </div>
+  );
 }
 
-export default App
+export default App;
